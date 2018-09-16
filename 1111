@@ -1,70 +1,20 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include<string>
-#include <fstream>
-#include<sstream>
-using namespace std;
-struct ListNode{
-	int val;
-	ListNode* next;
-	ListNode(int x) :val(x), next(NULL)
-	{}
-};
-ListNode* reverseList(ListNode*pHead, int k)
-{
-	ListNode*pre = NULL, *cur = pHead, *next,*last=pHead;
-	int i = 0;
-	int len = 0;
-	while (cur)
-	{
-		len++;
-		cur = cur->next;
-	}
-	if (len < k)return pHead;
-	cur = pHead;
-	while (1)
-	{
-		next = cur->next;
-		cur->next = pre;
-		pre = cur;
-		cur = next;
-		i++;
-		if (i == k){
-			if (cur)
-				last->next = reverseList(cur, k);
-			else
-				last->next = NULL;
-			return pre;
-		}
-	}
-}
+import sys
 
-int main()
-{
-	int k;
-	ListNode*pHead=NULL,*cur=NULL;
-	while (1)
-	{
-		cin >>k;
-		if (cin.eof())break;
-		if (!pHead){
-			pHead = new ListNode(k);
-			cur = pHead;
-		}
-		else{
-			cur->next = new ListNode(k);
-			cur = cur->next;
-		}
-	}
-	pHead = reverseList(pHead, k);
-	while (pHead)
-	{
-		cout << pHead->val<<",";
-		pHead = pHead->next;
-	}
-	//system("pause");
-	return 0;
-}
+
+def f(list):
+
+    re = 0
+    for i in range(len(list)):
+        for j in range(i):
+            if list[j] > list[i]:
+                re += 1
+    return re
+
+
+if __name__ == "__main__":
+    n = int(sys.stdin.readline().strip())
+    numbers = []
+    for i in range(n):
+        a = int(sys.stdin.readline().strip())
+        numbers.append(a)
+    print(f(numbers))
