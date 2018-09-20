@@ -1,37 +1,51 @@
-#include <stdio.h>
-#define MAX(a,b) a>b?a:b 
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include<string>
+#include <fstream>
+#include<sstream>
+using namespace std;
+#define CIN myin
 
-int a[100];
-int dp[1000][1000];
 
+
+bool isval(vector<int>&aC , int C )
+{
+	int n = aC.size();
+	vector<int>f((++C), -10000);
+	f[0] = 0;
+	for (int i = 0; i <= n - 1; i++)
+	{
+		for (int j = C - 1; j >= aC[i]; j--)
+		{
+			if (i == 0)
+			{
+				if (j == aC[i])f[j] = 1;
+			}
+			else
+			{
+				f[j] = max(f[j - aC[i]] + 1, f[j]);
+				if (f[j] < 0)f[j] = -10000;
+			}
+		}
+
+	}
+	return (*f.rbegin()>0);
+}
 int main()
 {
-	int n,m,maxvalue=0;
-	scanf("%d %d",&n,&m);
-	for(int i=1;i<=n;i++)
+	int n;
+	cin >> n;
+	vector<int>a(n);
+	for (int i = 0; i < n; i++)
 	{
-		scanf("%d",&a[i]);
+		cin >> a[i];
 	}
-	for(int i=1;i<=n;i++)
-	{
-		dp[i][1]=dp[i-1][1]+a[i];
-	}
-	for(int i=1;i<=n;i++)
-	{
-		for(int j=2;j<=m;j++)
-		{
-			int minvalue=99999;
-			for(int k=1;k<i;k++){
-				int temp=MAX(dp[i][1]-dp[k][1],dp[k][j-1]);
-				if(temp<minvalue)
-				{
-					minvalue=temp;
-				}
-			}
-			dp[i][j]=minvalue;
-		}
-	 }
-	 printf("%d\n",dp[n][m]); 
-	
+	int C;
+	cin >> C;
+	cout << isval(a,C);
 	return 0;
-} 
+}
+ 
