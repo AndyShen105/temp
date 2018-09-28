@@ -3,17 +3,15 @@ import sys
 
 
 if __name__ == "__main__":
-   n =  int(sys.stdin.readline().strip())
-   a = 1
-   b = 2
-   c = 0
-   if n==0:
-       print 1
-   elif n==1:
-       print 2
-   else:
-       for i in range(2, n+1):
-           c = a+b
-           a = b
-           b = c
-       print c
+   n, m = map(int, sys.stdin.readline().strip().split(" "))
+   arr = map(int, sys.stdin.readline().strip().split(" "))
+   sum = 0
+   hight = max(arr)
+
+ 
+   while sum != m and m!=0:
+       hight -= 1
+       for i in arr:
+           if hight<i:
+               sum+=1
+   print hight
